@@ -26,6 +26,25 @@ class SalesAnalysisTests(unittest.TestCase):
         self.assertEqual(float(clean.iloc[0]["line_revenue"]), 10.0)
         self.assertEqual(quality["rows_excluded_from_sales_analysis"], 3)
 
+    def test_invalid_dates_excluded_but_missing_customer_rows_retained(self):
+        raw = pd.DataFrame({
+            "InvoiceNo": ["200", "201", "C202", "203"],
+            "StockCode": ["A", "B", "C", "D"],
+            "Description": ["Known item", "Bad date item", "Cancelled item", "Unknown-customer item"],
+            "Quantity": [2, 1, 1, 3],
+            "InvoiceDate": ["2026-10-01", "not-a-date", "2026-10-02", "2026-10-03"],
+            "UnitPrice": [5, 9, 4, 2],
+            "CustomerID": [None, 2, 3, None],
+            "Country": ["UK", "UK", "UK", "FR"],
+        })
+        _, clean, quality = prepare_data(raw)
+        self.assertEqual(len(clean), 2)
+        self.assertAlmostEqual(float(clean["line_revenue"].sum()), 16.0, places=2)
+        self.assertEqual(int(clean["CustomerID"].nunique()), 0)
+        self.assertEqual(quality["invalid_or_missing_invoice_date_rows_flagged"], 1)
+        self.assertEqual(quality["missing_customer_id_rows_flagged"], 2)
+        self.assertEqual(quality["rows_excluded_from_sales_analysis"], 2)
+
     def test_line_type_classification(self):
         self.assertEqual(classify_line_type("POST", "POSTAGE"), "Postage / shipping")
         self.assertEqual(classify_line_type("POSTAGE", "Postage"), "Postage / shipping")

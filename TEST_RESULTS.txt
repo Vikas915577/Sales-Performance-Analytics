@@ -1,27 +1,31 @@
 TEST REPORT — Sales Performance Analytics DDD overlay
 
-Automated local checks
-- `python -m unittest test_analysis.py -v`: PASS (3 passed; 2 sample-file tests skipped because the overlay intentionally excludes the target repository's sample CSV).
+Automated checks run against the overlay files
+- `python -m unittest test_analysis.py -v`: PASS — 4 tests passed; 2 tests skipped because this overlay intentionally does not bundle the existing repository's sample CSV. Those two tests activate after merging into the repository with `sales_transactions_sample.csv` present.
+- `python -m py_compile analyze_sales.py test_analysis.py`: PASS.
 - `node --check dashboard.js`: PASS.
-- Browser interaction check: PASS in headless Chromium using an in-memory synthetic fixture; no JavaScript page errors on mobile or desktop.
-- HTML checks: PASS — no duplicate element IDs; all local document links in the overlay resolve.
+- HTML integrity: PASS — 37 element IDs, no duplicate IDs, no missing local links or missing in-page anchor targets.
+- CI workflow YAML parsed successfully. A real GitHub Actions run after upload is still pending.
 
-Browser behaviors checked
-- Mobile viewport: 390px wide; desktop viewport: 1440px wide. Neither had horizontal page overflow.
-- Six fixture rows loaded and KPI values matched the fixture: retained-line sales 33, 5 distinct orders, AOV 6.6, merchandise sales 30, known customers 2, shipping charges 3 and postage share 9.09%.
-- Country filter recalculated KPIs (FR: sales 13, 2 orders, merchandise sales 13).
-- Empty filter selection returned a clear no-rows state and zero KPIs.
-- Reset restored the initial view; transaction search returned the matching two lines.
-- Country/product ranking bars and all three review cards rendered.
+Headless Chromium interaction test (synthetic QA fixture)
+- Viewports: 390px mobile and 1440px desktop; no horizontal page overflow.
+- Eight input fixture rows were cleaned to five retained transaction lines; dashboard loaded the CSV and quality JSON without browser console or page errors.
+- KPI assertions passed: retained-line sales 36; 4 distinct invoices; AOV 9; merchandise sales 34; postage/shipping sales 2 (5.56%); 3 known customers.
+- Country filter UK recalculated sales to 27 and orders to 3.
+- Shipping-only filter showed sales 2 and merchandise sales 0.
+- Reset restored original totals; transaction search narrowed the result; out-of-scope dates produced a zero-sales empty state.
+- Postage was excluded from the merchandise ranking; a test product name containing HTML markup rendered as text rather than an injected image element.
+- Country/product charts and the three review-queue cards rendered.
 
-Existing repository sample cross-check (via GitHub read access)
-- Input rows: 383; rows retained under the project's exclusions: 368.
+Cross-check of the existing GitHub sample data
+- Input rows: 383; rows retained after the documented cancellation/quantity/price/date exclusions: 368.
 - Gross sales on retained lines: 5,313.78 dataset units.
 - Classified postage/shipping: 33 retained lines, 1,474.20 dataset units (27.74% of retained-line sales).
-- Merchandise sales after removing those charges: 3,839.58 dataset units.
-- These values reconcile with the existing repository's KPI output and support the new line-type split. The sample file itself is not included in this overlay package.
+- Merchandise sales after removing classified postage/shipping: 3,839.58 dataset units.
+- These figures were recalculated from the repository's sample CSV content and reconcile with the existing KPI figures. The CSV itself is intentionally not included in the overlay ZIP.
 
-Not yet verified
-- The overlay has not been committed to the live GitHub repo, so GitHub Actions and the deployed website have not run against these changes.
-- PostgreSQL queries have been reviewed for consistency with the metric contract but not executed against a live PostgreSQL instance here.
-- No live Infor Birst tenant is connected. Birst instructions remain an implementation blueprint until built and reconciled in a real tenant.
+Not yet verified / release gates
+- The overlay has not been committed to the live GitHub repository because the connected integration returned a write-permission error. Therefore, GitHub Actions and GitHub Pages have not run against this version.
+- PostgreSQL queries were reviewed for alignment with the metric contract but not executed against a live PostgreSQL database.
+- No Infor Birst tenant is connected. Birst steps remain an implementation blueprint until the model, reports, filters and reconciliations are completed in a real tenant.
+- Browser checks used a synthetic QA fixture; they are not a substitute for checking the deployed site with the retained repository CSV after upload.

@@ -5,13 +5,14 @@
   "main_design_principle": "Display -> Diagnose -> Decide",
   "data_disclosure": "The existing repository uses a synthetic demo sample. Source datasets and current generated outputs are intentionally not bundled in this overlay.",
   "validation": {
-    "python_unit_tests": "pass: 3 passed, 2 sample-dependent tests skipped because the overlay excludes the existing dataset",
-    "javascript_syntax": "pass",
-    "browser_interaction": "pass: 390px mobile and 1440px desktop, filters, empty state, reset, table search, charts, review queue; no JS page errors or horizontal overflow",
+    "python_unit_tests": "overlay run: 4 passed, 2 sample-dependent tests skipped because the preserved repository CSV is not bundled; expected to run after merging with source CSV present",
+    "javascript_syntax": "pass: node --check dashboard.js",
+    "browser_interaction": "pass: headless Chromium, 390px and 1440px; 20 functional/visual assertions passed; no console/page errors; details in TEST_RESULTS.txt",
     "github_actions": "pending_user_upload",
     "infor_birst_tenant": "blueprint_only; live_tenant_not_verified",
-    "repository_sample_cross_check": "383 input / 368 retained; retained-line sales 5313.78; postage/shipping 1474.20 over 33 lines; merchandise 3839.58; 27.74% shipping share",
-    "html_integrity": "pass: no duplicate IDs; local document links resolve"
+    "repository_sample_cross_check": "recalculated from existing GitHub CSV: 383 input / 368 retained; retained-line sales 5313.78; postage/shipping 1474.20 over 33 lines; merchandise 3839.58; shipping share 27.74%",
+    "html_integrity": "pass: 37 IDs, no duplicates, all local document links and in-page anchors resolve",
+    "ci_workflow_yaml": "parsed successfully; live Actions run pending upload"
   },
   "files": [
     "index.html",

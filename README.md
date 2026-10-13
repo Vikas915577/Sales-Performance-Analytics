@@ -1,94 +1,82 @@
-# Sales Performance Analytics
+# Sales Performance Analytics — DDD portfolio project
 
-A reproducible business-intelligence portfolio demo for sales trends, product/country contribution, order metrics and transaction quality. The analysis pipeline uses Python/pandas; SQL scripts provide a PostgreSQL reporting layer; the dashboard blueprint is designed for **Infor Birst**.
+An interview-friendly sales analytics project built around **Display → Diagnose → Decide**. It combines a responsive interactive dashboard, reproducible Python/pandas analysis, PostgreSQL reporting queries, data-quality checks, automated tests and an Infor Birst implementation blueprint.
 
-**Project website:** https://vikas915577.github.io/Sales-Performance-Analytics/  
-**GitHub repository:** https://github.com/Vikas915577/Sales-Performance-Analytics
+- **GitHub:** https://github.com/Vikas915577/Sales-Performance-Analytics
+- **GitHub Pages:** https://vikas915577.github.io/Sales-Performance-Analytics/
 
-> **Data disclosure:** the charts and KPI figures currently bundled in this repository were generated from a small synthetic demo sample to test the pipeline. They are not real employer/client results and must not be presented as actual commercial findings. This project includes an Infor Birst dashboard blueprint; it does not claim a live Birst dashboard has already been built or deployed.
+> **Data disclosure:** The current bundled metrics were calculated from a small synthetic sample for testing. They are not actual commercial/employer/client results. The Birst material is a build blueprint, not proof of a live Birst tenant deployment.
 
-## What the project covers
+## Business user story
 
-- Normalize common variations in transaction CSV/XLSX column names.
-- Flag cancellation-like invoices and non-positive/missing quantities or prices.
-- Parse transaction dates and create a documented retained-sales dataset.
-- Calculate monthly sales, orders, average order value, units, product rankings, country rankings and known-customer summaries.
-- Export quality checks and chart images.
-- Provide PostgreSQL schema and business queries for a normalized transaction-line table.
-- Define an Infor Birst fact/dimension model, proposed measures, dashboard pages and validation steps.
+**As a sales operations manager, I want to see whether sales are changing, diagnose which periods/countries/merchandise items contribute to the pattern, and prioritize what to investigate next—so I can focus attention on evidence rather than guesswork.**
 
-## Demo KPI snapshot
+## Dashboard: Display → Diagnose → Decide
 
-These figures apply **only to the bundled synthetic sample**:
+| Stage | Main question | What the dashboard provides |
+|---|---|---|
+| **Display** | What is happening? | Retained-line sales, merchandise sales, postage share, orders, AOV, units, date/source context |
+| **Diagnose** | What contributes and what should be checked? | Date/country/type/product filters, monthly trend, contribution charts, line-level details and quality flags |
+| **Decide** | What should be investigated next? | Evidence-backed review queue with rationale and accountable owner; no automated business actions |
 
-| Metric | Demo result |
-|---|---:|
-| Input rows | 383 |
-| Rows retained after the documented filter | 368 |
-| Gross sales on retained lines | 5,313.78 dataset currency units |
-| Distinct orders | 50 |
-| Average order value | 106.28 dataset currency units |
-| Units sold | 1,082 |
-| Known customers | 40 |
-| Demo date range | 2010-12-04 to 2011-11-27 |
+The dashboard uses HTML/CSS/vanilla JavaScript and inline SVG charts—no CDN chart dependency. Filters should update all dependent KPIs, charts, table rows and review prompts. The detail table supports search and pagination.
 
-“Gross sales on retained lines” is the sum of positive retained transaction lines after excluding cancellation-like invoices, non-positive or missing quantities/prices, and invalid dates. It is **not accounting net revenue**. Currency is not assumed.
+## Key analysis improvement
 
-## Quick start
+**Shipping/postage is not a merchandise product.** The current sample previously showed `POSTAGE` as the top “product” because the source row was treated like any merchandise item. The updated pipeline adds `line_type` classification and separates:
 
-Python 3.10+ is recommended.
+- **Gross sales on retained lines:** includes eligible retained postage/shipping rows; not accounting net revenue.
+- **Merchandise sales:** excludes lines classified as postage/shipping.
+- **Postage/shipping share:** shipping charges divided by retained-line sales in the same filter context.
 
-~~~bash
+Rules classify common codes such as `POST`/`POSTAGE` and explicit postage/shipping labels. Verify those source mappings before using a different dataset. Cost/margin fields are absent, so the project does not claim product profitability or ROI.
+
+## Tools and technical work
+
+- Python 3.10+, pandas and matplotlib
+- PostgreSQL-compatible SQL and an explicit transaction-line schema
+- HTML, CSS and vanilla JavaScript for the responsive dashboard
+- GitHub Pages for hosting the standalone project page
+- Infor Birst: documented fact/dimension model, business-friendly subject area, Visualizer reports, dashboard filters/KPI dashlets and DDD page plan (manual tenant setup remains separate)
+- GitHub Actions CI for unit tests, output build and JavaScript syntax check
+
+## Run locally
+
+From the repository root, install dependencies and run:
+
+```bash
 python -m pip install -r requirements.txt
-python analyze_sales.py --input sales_transactions_sample.csv --source-label "Synthetic demo sample" --output-dir outputs/demo
 python -m unittest test_analysis.py -v
-~~~
+python analyze_sales.py --input sales_transactions_sample.csv --source-label "Synthetic demo sample" --output-dir .
+```
 
-The analysis command writes cleaned CSVs, KPI JSON, a data-quality JSON report, a findings summary and charts to the selected output folder.
+**Important:** the last command regenerates the root output CSVs, JSON reports, summaries and `charts/` images from the selected input. It does not modify `sales_transactions_sample.csv`. Commit updated output files only if you intentionally want to publish the refreshed generated results.
 
-To analyze a real source file, download the official UCI Online Retail dataset and pass its CSV/XLSX path to `--input`. Cite the source dataset, analysis period and filtering rules in any published findings. Do not quote the sample values above as findings from the UCI dataset.
+Run the static website on an HTTP server (not by opening the HTML as a `file://` URL) so the browser can fetch the CSV/JSON:
 
-## Key files
+```bash
+python -m http.server 8000
+```
 
-- [Project landing page](index.html) — responsive project overview and charts.
-- [Python analysis script](analyze_sales.py) — loading, cleaning, aggregation and chart generation.
-- [SQL schema](00_schema.sql) — PostgreSQL transaction-line table.
-- [Business queries](01_business_queries.sql) — KPIs, monthly sales, country/product and customer analysis.
-- [Quality checks](02_quality_checks.sql) — queries for a separate raw staging table; create/import that table before running them.
-- [Infor Birst dashboard blueprint](dashboard_blueprint.md) — suggested model, measures, report pages and validation.
-- [Data dictionary](data_dictionary.md) — field definitions and handling notes.
-- [Demo findings](analysis_summary.md) and [quality report](data_quality_report.json).
-- [Demo-only warning](DEMO_NOTICE.md).
+Then open `http://localhost:8000`. On GitHub Pages, verify `index.html`, `dashboard.js`, `sales_transactions_sql_ready.csv` and `data_quality_report.json` are all accessible from the repository root.
 
-## SQL setup
+## Repo guide
 
-1. Open PostgreSQL and run `00_schema.sql`.
-2. Run the Python command above to create `outputs/demo/sales_transactions_sql_ready.csv`.
-3. Import that CSV into the `retail_transactions` table, matching the columns in the schema, or use a command similar to this after replacing the path:
+- `index.html`, `dashboard.js` — responsive interactive dashboard.
+- `analyze_sales.py` — loading, cleaning, classification, aggregation, KPI/quality output and charts.
+- `test_analysis.py` — cleaning, line classification and output-contract tests.
+- `00_schema.sql`, `01_business_queries.sql`, `02_quality_checks.sql` — PostgreSQL model and analyses.
+- `data_dictionary.md` — field/metric definitions and assumptions.
+- `DDD_USER_STORY_AND_ACCEPTANCE_CRITERIA.md` — user journey, metrics and testable acceptance criteria.
+- `dashboard_blueprint.md`, `RESEARCH_REFERENCES.md` — Birst build and validation notes.
+- `APPLY_UPDATE.md` — safe overlay instructions for the supplied update ZIP.
 
-~~~sql
-\copy retail_transactions(invoice_no, stock_code, description, quantity, invoice_date, unit_price, customer_id, country, line_revenue) FROM '/absolute/path/outputs/demo/sales_transactions_sql_ready.csv' WITH (FORMAT csv, HEADER true, NULL '');
-~~~
+## Responsible use and limitations
 
-4. Run `01_business_queries.sql`.
-5. `02_quality_checks.sql` assumes a separate table named `retail_raw` with the original source field names. It is a template and requires that staging table to exist first.
-
-## Infor Birst approach
-
-The model blueprint treats each retained transaction line as a fact row, with Date, Product/Stock Code, Country and Customer (where known) as dimensions. Suggested measures include retained-line gross sales, quantity, distinct orders and average order value. Build the KPI tiles, monthly trend, product/country rankings and data-quality view in a practice/demo space, then reconcile selected totals against the Python outputs. Add a Birst screenshot only after you have actually built and validated the dashboard.
-
-## Important limitations
-
-- Current bundled figures are synthetic demonstration outputs only.
-- The script does not add margin/profit analysis because product-cost data is not supplied.
-- Country and product rankings are descriptive and do not establish causation.
-- Missing customer IDs are excluded from customer counts but are not automatically treated as invalid sales.
-- This is a portfolio exercise, not audited financial reporting.
-
-## Before using this on your resume
-
-1. Run the pipeline on the official public dataset and save the new outputs separately.
-2. Verify the cleaning rules and explain them in your own words.
-3. Build and test the proposed dashboard in Infor Birst before claiming hands-on dashboard implementation for this project.
-4. Replace synthetic charts on the website only after validating real-data outputs.
-5. Never add company/client data or unverified percentages to GitHub or your resume.
+- The sample is synthetic; do not put its values on your resume as real business impact.
+- Exclusion flags may overlap; do not add flag counts as if they were unique rejected rows.
+- Rankings and month-over-month changes are descriptive signals, not causal findings.
+- No cost/margin data means no profitability, ROI or margin recommendation.
+- Do not infer current performance, seasonality or forecast accuracy from an old/synthetic time window.
+- Use only synthetic, licensed public or permissioned data; add source, license, covered period and currency when swapping the dataset.
+- Do not describe Birst as deployed until an actual Birst space has been configured and its filters/KPIs reconciled to Python/SQL.

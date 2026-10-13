@@ -1,6 +1,27 @@
-Project validation performed during packaging
-- Python analysis script executed successfully against bundled synthetic CSV.
-- Outputs and charts generated successfully.
-- Unit tests: PASS
+TEST REPORT — Sales Performance Analytics DDD overlay
 
-Note: This test uses the bundled synthetic sample only. The official UCI dataset was not downloaded into this package; re-run with that dataset before publishing real-data insights.
+Automated local checks
+- `python -m unittest test_analysis.py -v`: PASS (3 passed; 2 sample-file tests skipped because the overlay intentionally excludes the target repository's sample CSV).
+- `node --check dashboard.js`: PASS.
+- Browser interaction check: PASS in headless Chromium using an in-memory synthetic fixture; no JavaScript page errors on mobile or desktop.
+- HTML checks: PASS — no duplicate element IDs; all local document links in the overlay resolve.
+
+Browser behaviors checked
+- Mobile viewport: 390px wide; desktop viewport: 1440px wide. Neither had horizontal page overflow.
+- Six fixture rows loaded and KPI values matched the fixture: retained-line sales 33, 5 distinct orders, AOV 6.6, merchandise sales 30, known customers 2, shipping charges 3 and postage share 9.09%.
+- Country filter recalculated KPIs (FR: sales 13, 2 orders, merchandise sales 13).
+- Empty filter selection returned a clear no-rows state and zero KPIs.
+- Reset restored the initial view; transaction search returned the matching two lines.
+- Country/product ranking bars and all three review cards rendered.
+
+Existing repository sample cross-check (via GitHub read access)
+- Input rows: 383; rows retained under the project's exclusions: 368.
+- Gross sales on retained lines: 5,313.78 dataset units.
+- Classified postage/shipping: 33 retained lines, 1,474.20 dataset units (27.74% of retained-line sales).
+- Merchandise sales after removing those charges: 3,839.58 dataset units.
+- These values reconcile with the existing repository's KPI output and support the new line-type split. The sample file itself is not included in this overlay package.
+
+Not yet verified
+- The overlay has not been committed to the live GitHub repo, so GitHub Actions and the deployed website have not run against these changes.
+- PostgreSQL queries have been reviewed for consistency with the metric contract but not executed against a live PostgreSQL instance here.
+- No live Infor Birst tenant is connected. Birst instructions remain an implementation blueprint until built and reconciled in a real tenant.

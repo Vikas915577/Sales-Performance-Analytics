@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10182b">
+<meta name="description" content="Sales Performance Analytics portfolio demo using Python, SQL and an Infor Birst dashboard blueprint.">
+<title>Sales Performance Analytics | BI Portfolio</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1120;--panel:#121c31;--line:#263650;--text:#f3f6fc;--muted:#a9b6ca;--blue:#7db5ff;--teal:#76e0c2;--gold:#ffe3a3}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#19325c 0,transparent 36%),var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.wrap{width:min(1100px,calc(100% - 32px));margin:auto}header{border-bottom:1px solid var(--line)}.nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{font-weight:800;color:var(--text)}.navlinks{display:flex;flex-wrap:wrap;gap:15px;font-size:14px}
+.hero{padding:46px 0 28px;display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}.eyebrow{color:var(--teal);font-size:12px;letter-spacing:1.8px;text-transform:uppercase;font-weight:800}h1{font-size:clamp(36px,5vw,60px);line-height:1.05;letter-spacing:-1.5px;margin:12px 0 16px}h2{font-size:23px;line-height:1.25;margin:0 0 7px}h3{font-size:17px;margin:0 0 7px}p{margin:0 0 12px;color:var(--muted)}.lead{font-size:18px}.chips,.actions,.links{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0}.chip{border:1px solid #355071;background:#14243d;border-radius:999px;padding:5px 10px;font-size:13px}.btn,.filelink{display:inline-block;border:1px solid #3d5e89;border-radius:10px;padding:10px 13px;background:#1b3659;color:#fff;font-weight:700}.btn.secondary,.filelink{background:transparent;color:var(--blue);border-color:var(--line);font-weight:600}.card{border:1px solid var(--line);border-radius:16px;padding:20px;background:linear-gradient(150deg,#17243b,#101a2d)}.status{display:inline-block;border:1px solid #8c7346;border-radius:999px;color:var(--gold);padding:4px 9px;font-size:12px;font-weight:800;margin-bottom:12px}.card ul{padding-left:19px;margin-bottom:0;color:#d7e1ef}.card li{padding:4px 0}.notice{border:1px solid #6c5b35;background:#282417;color:#ffe9ba;border-radius:12px;padding:14px 16px;font-size:14px;margin:0 0 22px}
+.section{padding:20px 0}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:14px}.sectionhead p{font-size:14px;margin:0}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{border:1px solid var(--line);border-radius:14px;padding:17px;background:var(--panel)}.label{font-size:13px;color:var(--muted)}.value{font-size:clamp(23px,3vw,32px);font-weight:850;letter-spacing:-.7px;margin:6px 0 2px}.sub,.small{font-size:12px;color:#91a2bb}.charts,.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.chart img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:9px;margin-top:12px;background:#f5f7fb}.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.step{border-left:2px solid #4776b2;padding-left:13px}.num{font-size:12px;color:var(--teal);font-weight:800;letter-spacing:1px}footer{border-top:1px solid var(--line);margin-top:30px;padding:23px 0 32px;font-size:13px;color:var(--muted)}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:34px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.charts,.two{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.nav{align-items:flex-start;flex-direction:column;padding:13px 0}.sectionhead{align-items:flex-start;flex-direction:column}}
+@media(max-width:390px){.wrap{width:calc(100% - 22px)}.card{padding:16px}.metric{padding:13px}.grid{gap:8px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav"><a class="brand" href="./">Sales Analytics Lab</a><nav class="navlinks"><a href="#overview">Overview</a><a href="#charts">Charts</a><a href="#method">Method</a><a href="README.md">README</a></nav></div></header>
+<main class="wrap">
+<section class="hero">
+<div><div class="eyebrow">Business Intelligence Portfolio Project</div><h1>Sales Performance<br>Analytics</h1>
+<p class="lead">A reproducible sales-analysis demo combining transaction cleaning, business KPIs, SQL reporting and a dashboard blueprint designed for Infor Birst.</p>
+<div class="chips"><span class="chip">Infor Birst blueprint</span><span class="chip">SQL / PostgreSQL</span><span class="chip">Python / pandas</span><span class="chip">Data quality</span></div>
+<p class="small">The Birst dashboard is a planned implementation guide, not yet a deployed dashboard in a Birst tenant.</p>
+<div class="actions"><a class="btn" href="https://github.com/Vikas915577/Sales-Performance-Analytics">View GitHub repository ↗</a><a class="btn secondary" href="README.md">Read project guide</a></div>
+</div>
+<aside class="card"><span class="status">Synthetic demo data</span><h2>What this project demonstrates</h2><ul>
+<li>Normalize transaction columns and parse invoice dates</li><li>Flag cancellation-like invoices and invalid sales lines</li><li>Calculate sales, orders, AOV, units and product/country summaries</li><li>Plan an Infor Birst model, KPI tiles, reports and filters</li></ul></aside>
+</section>
+<div class="notice"><strong>Important:</strong> every figure and chart currently shown comes from a synthetic sample used to test the pipeline. These are not real employer/client results and must not be stated as actual business achievements.</div>
+<section class="section" id="overview"><div class="sectionhead"><div><h2>Demo KPI snapshot</h2><p>Calculated after the documented cleaning rules.</p></div><p id="period" class="small">2010-12-04 → 2011-11-27</p></div>
+<div class="grid">
+<div class="metric"><div class="label">Gross sales on retained lines</div><div class="value" id="sales">5,313.78</div><div class="sub">Dataset units; not audited net revenue</div></div>
+<div class="metric"><div class="label">Distinct orders</div><div class="value" id="orders">50</div><div class="sub">Unique invoice identifiers</div></div>
+<div class="metric"><div class="label">Average order value</div><div class="value" id="aov">106.28</div><div class="sub">Sales total ÷ distinct orders</div></div>
+<div class="metric"><div class="label">Rows retained</div><div class="value" id="retained">368</div><div class="sub"><span id="input">383</span> input rows</div></div>
+</div></section>
+<section class="section" id="charts"><div class="sectionhead"><div><h2>Analysis charts</h2><p>Static outputs from the current demo dataset.</p></div></div>
+<div class="charts">
+<article class="card chart"><h3>Monthly sales trend</h3><p class="small">Gross sales on retained positive lines by month.</p><a href="monthly_sales_trend.png"><img src="monthly_sales_trend.png" alt="Monthly sales trend chart" loading="lazy"></a></article>
+<article class="card chart"><h3>Top products</h3><p class="small">Products ranked by retained-line sales value.</p><a href="top_products.png"><img src="top_products.png" alt="Top products by sales chart" loading="lazy"></a></article>
+<article class="card chart"><h3>Country performance</h3><p class="small">Countries ranked by retained-line sales value.</p><a href="top_countries.png"><img src="top_countries.png" alt="Top countries by sales chart" loading="lazy"></a></article>
+<article class="card"><h3>Data quality notes</h3><p>Flags can overlap and must not be summed to estimate unique excluded rows. Review the filter logic before interpreting any result.</p><div class="links"><a class="filelink" href="data_quality_report.json">Quality report JSON</a><a class="filelink" href="analysis_summary.md">Findings & definitions</a></div></article>
+</div></section>
+<section class="section" id="method"><div class="sectionhead"><div><h2>Project workflow</h2><p>Designed to be reproducible and reviewable.</p></div></div><div class="steps">
+<div class="step"><div class="num">01 / INPUT</div><h3>Load data</h3><p class="small">Read a compatible CSV/XLSX with invoice, product, quantity, price, date and country fields.</p></div>
+<div class="step"><div class="num">02 / CLEAN</div><h3>Validate lines</h3><p class="small">Normalize column names, parse dates, flag cancellation-like invoices and filter invalid lines.</p></div>
+<div class="step"><div class="num">03 / ANALYZE</div><h3>Build KPIs</h3><p class="small">Calculate monthly sales, AOV, product/country ranks and quality summaries.</p></div>
+<div class="step"><div class="num">04 / PRESENT</div><h3>Plan Birst</h3><p class="small">Define fact/dimension concepts, KPI tiles, charts and interactive filters.</p></div>
+</div></section>
+<section class="section"><div class="two">
+<article class="card"><h2>Infor Birst dashboard blueprint</h2><p>Suggested fact: transaction line; dimensions: Date, Product/Stock Code, Country and Customer (when known). Proposed pages cover executive KPIs, product/geography, and data quality.</p><p class="small">Do not claim a Birst dashboard was implemented until you have built and validated it in your own Birst environment.</p><a class="btn secondary" href="dashboard_blueprint.md">Open Birst blueprint</a></article>
+<article class="card"><h2>Project files</h2><p>Explore the script, queries, tests, definitions and generated outputs.</p><div class="links"><a class="filelink" href="analyze_sales.py">Python script</a><a class="filelink" href="00_schema.sql">SQL schema</a><a class="filelink" href="01_business_queries.sql">Business queries</a><a class="filelink" href="02_quality_checks.sql">Quality checks</a><a class="filelink" href="data_dictionary.md">Data dictionary</a><a class="filelink" href="TEST_RESULTS.txt">Test notes</a><a class="filelink" href="kpi_summary.json">KPI JSON</a></div></article>
+</div></section>
+</main>
+<footer><div class="wrap"><p><strong>Portfolio demo only.</strong> Replace synthetic outputs with a clearly cited public-dataset analysis before publishing real-data findings. Never upload company/client data.</p><p>GitHub Pages · Python/pandas · PostgreSQL SQL · Infor Birst dashboard design target</p></div></footer>
+<script>
+(async function(){try{const r=await fetch("kpi_summary.json",{cache:"no-store"});if(!r.ok)return;const k=await r.json();const n=v=>new Intl.NumberFormat("en-IN",{maximumFractionDigits:2}).format(Number(v||0));document.getElementById("sales").textContent=n(k.gross_sales_retained_lines);document.getElementById("orders").textContent=n(k.orders);document.getElementById("aov").textContent=n(k.average_order_value);document.getElementById("retained").textContent=n(k.rows_retained_for_sales_analysis);document.getElementById("input").textContent=n(k.input_rows);document.getElementById("period").textContent=(k.date_min||"—")+" → "+(k.date_max||"—");}catch(e){}})();
+</script>
+</body></html>

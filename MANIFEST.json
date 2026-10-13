@@ -1,0 +1,130 @@
+{
+  "project": "Sales Performance Analytics",
+  "status": "starter project; demo outputs are synthetic",
+  "validation": {
+    "pipeline": "pass",
+    "unittests": "pass"
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 217
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1092
+    },
+    {
+      "path": "README.md",
+      "bytes": 6232
+    },
+    {
+      "path": "data/raw/README.md",
+      "bytes": 332
+    },
+    {
+      "path": "data/sample_data/sales_transactions_sample.csv",
+      "bytes": 30586
+    },
+    {
+      "path": "docs/GITHUB_UPLOAD_GUIDE.md",
+      "bytes": 1408
+    },
+    {
+      "path": "docs/TEST_RESULTS.txt",
+      "bytes": 371
+    },
+    {
+      "path": "docs/dashboard_blueprint.md",
+      "bytes": 2893
+    },
+    {
+      "path": "docs/data_dictionary.md",
+      "bytes": 1054
+    },
+    {
+      "path": "outputs/demo/DEMO_NOTICE.md",
+      "bytes": 344
+    },
+    {
+      "path": "outputs/demo/analysis_summary.md",
+      "bytes": 1303
+    },
+    {
+      "path": "outputs/demo/charts/monthly_sales_trend.png",
+      "bytes": 96255
+    },
+    {
+      "path": "outputs/demo/charts/top_countries.png",
+      "bytes": 48779
+    },
+    {
+      "path": "outputs/demo/charts/top_products.png",
+      "bytes": 85035
+    },
+    {
+      "path": "outputs/demo/cleaned_sales.csv",
+      "bytes": 32670
+    },
+    {
+      "path": "outputs/demo/country_performance.csv",
+      "bytes": 219
+    },
+    {
+      "path": "outputs/demo/customer_summary.csv",
+      "bytes": 2422
+    },
+    {
+      "path": "outputs/demo/data_quality_report.json",
+      "bytes": 552
+    },
+    {
+      "path": "outputs/demo/kpi_summary.json",
+      "bytes": 543
+    },
+    {
+      "path": "outputs/demo/monthly_performance.csv",
+      "bytes": 587
+    },
+    {
+      "path": "outputs/demo/order_summary.csv",
+      "bytes": 2980
+    },
+    {
+      "path": "outputs/demo/product_performance.csv",
+      "bytes": 712
+    },
+    {
+      "path": "outputs/demo/sales_transactions_sql_ready.csv",
+      "bytes": 32670
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 42
+    },
+    {
+      "path": "sql/00_schema.sql",
+      "bytes": 775
+    },
+    {
+      "path": "sql/01_business_queries.sql",
+      "bytes": 2692
+    },
+    {
+      "path": "sql/02_quality_checks.sql",
+      "bytes": 1041
+    },
+    {
+      "path": "sql/README.md",
+      "bytes": 961
+    },
+    {
+      "path": "src/analyze_sales.py",
+      "bytes": 13035
+    },
+    {
+      "path": "tests/test_analysis.py",
+      "bytes": 1347
+    }
+  ]
+}

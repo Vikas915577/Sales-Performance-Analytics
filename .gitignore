@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+env/
+
+# Raw source dataset is downloaded separately; keep only the instructions in Git
+data/raw/*
+!data/raw/README.md
+
+# Local environment and IDE
+.env
+.vscode/
+.idea/
+.DS_Store

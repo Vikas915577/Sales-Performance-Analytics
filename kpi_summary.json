@@ -1,0 +1,14 @@
+{
+  "source_label": "Synthetic demo sample",
+  "input_file": "sales_transactions_sample.csv",
+  "input_rows": 383,
+  "rows_retained_for_sales_analysis": 368,
+  "gross_sales_retained_lines": 5313.78,
+  "orders": 50,
+  "average_order_value": 106.28,
+  "units_sold": 1082.0,
+  "distinct_known_customers": 40,
+  "date_min": "2010-12-04",
+  "date_max": "2011-11-27",
+  "definition": "Gross sales on retained positive lines; excludes cancellation invoices, non-positive/missing quantities or prices, and invalid dates. Not accounting net revenue."
+}

@@ -1,0 +1,11 @@
+{
+  "input_rows": 383,
+  "cancelled_invoice_rows_flagged": 8,
+  "non_positive_or_missing_quantity_rows_flagged": 12,
+  "non_positive_or_missing_unit_price_rows_flagged": 3,
+  "invalid_or_missing_invoice_date_rows_flagged": 0,
+  "missing_customer_id_rows_flagged": 24,
+  "rows_retained_for_sales_analysis": 368,
+  "rows_excluded_from_sales_analysis": 15,
+  "note": "Flags can overlap and must not be summed to estimate unique excluded rows. Sales analysis excludes cancellation invoices, non-positive/missing quantity or price, and unparseable dates."
+}

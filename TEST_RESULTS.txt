@@ -1,0 +1,6 @@
+Project validation performed during packaging
+- Python analysis script executed successfully against bundled synthetic CSV.
+- Outputs and charts generated successfully.
+- Unit tests: PASS
+
+Note: This test uses the bundled synthetic sample only. The official UCI dataset was not downloaded into this package; re-run with that dataset before publishing real-data insights.
